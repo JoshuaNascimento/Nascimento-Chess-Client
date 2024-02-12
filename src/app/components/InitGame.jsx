@@ -1,5 +1,5 @@
 import socket from "../socket";
-import { useState } from "react";
+import { useState } from "react"; 
 import { Stack, TextField, Button} from "@mui/material";
 import CustomDialog from "./CustomDialog";
 
@@ -10,7 +10,7 @@ import CustomDialog from "./CustomDialog";
  * @param roomError - Tracks whatever error was encountered while trying to join a room 
  * @returns 
  */
-const InitGame = ({ setRoom, setOrientation, setPlayers }) => {
+const InitGame = ({setRoom, setOrientation, setPlayers}) => {
   const [roomDialogOpen, setRoomDialogOpen] = useState(false);
   const [roomCode, setRoomCode] = useState('');
   const [roomError, setRoomError] = useState('');
@@ -31,7 +31,7 @@ const InitGame = ({ setRoom, setOrientation, setPlayers }) => {
       handleContinue={() => {
         // join a room
         if (!roomCode) return;  // Check if room code is valid
-        socket.emit('joinRoom', {roomID: roomCode}, (response: any) => {
+        socket.emit('joinRoom', {roomID: roomCode}, (response) => {
           if (response.error) return setRoomError(response.message);  // If returned an error set roomError to the given message and exit
           console.log(`response: ${response}`);
           setRoom(response?.roomID);  // Set room to the Room ID
@@ -62,7 +62,7 @@ const InitGame = ({ setRoom, setOrientation, setPlayers }) => {
       variant="contained"
       onClick={() => {
         // Emit the event for creating room through the websocket to the backend
-        socket.emit('createRoom', (response: any) => { // Backend event contains a callback which will be passed the roomID
+        socket.emit('createRoom', (response) => { // Backend event contains a callback which will be passed the roomID
           console.log(response)
           setRoom(response);  // Set room to the Room ID
           setPlayers(response?.players);  // Set players array to the players in the room
